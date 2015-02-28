@@ -1,0 +1,40 @@
+shopping3-5 환경 셋팅
+
+1. mysql 캐릭터 셋을 utf8 로 설정
+2. 압축을 푼 프로젝트 파일을 이클립스에서 import 한다.
+3. 프로젝트의 패키지 위치에 있는 item.csv, user.csv 파일을 c:/ 로 옮김
+4. 프로젝트의 패키지 위치에 있는 3-5.sql 파일을 mysql 에서 실행하여 테이블 생성 및 초기 데이타 로딩
+5. applicationContext.xml 파일을 mysql 접근 정보로 수정
+6.한글이 깨져서 보일 경우
+Mysql 의 my.ini(윈도우에 설치된 경우)파일에서 
+my.ini 파일은 숨겨져 있을 수 있으니 폴더옵션으로 숨김해제 후 확인 필요
+나의 경우 C:\ProgramData\MySQL\MySQL Server 5.5/my.ini 에 존재 했음
+
+캐릭터 변수 설정값 조회 방법
+show variables like 'c%';
+
+my.ini 추가 및 변경해야 할 부분
+
+[client]
+default-character-set=utf8
+
+
+[mysql]
+
+
+
+default-character-set=utf8
+
+[mysqld]
+character-set-client-handshake = FALSE
+
+init_connect="SET collation_connection = utf8_general_ci"
+init_connect="SET NAMES utf8"
+character-set-server = utf8
+
+또는 아래와 같은 추가 설정이 필요할 수 있음
+
+alter database spring charset = utf8; // database spring 의 캐릭터 셋 변경 설정
+
+
+위와 같이 설정 후 Mysql 재구동하여 웹브라우져 테스트 바랍니다.
